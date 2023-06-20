@@ -1,0 +1,56 @@
+{
+    "name": "InputControls",
+    "maps": [
+        {
+            "name": "gameplay",
+            "id": "ef27a818-414a-4c96-9f57-681bde1dbdc7",
+            "actions": [
+                {
+                    "name": "rotate",
+                    "type": "Value",
+                    "id": "f90030bb-f8d8-4441-876c-eed5d378ca91",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "q/e keyboard",
+                    "id": "bafc7a0d-8651-47a3-8b0f-86644b201d7f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "3eb9cfb0-5ea6-4173-b924-e5a6dedf2e4d",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "81f513ca-b4da-421d-86a6-ccb9df1059a9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

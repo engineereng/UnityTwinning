@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 137px; width: 346px;">
+        <ui:Label tabindex="-1" text="Angle: " display-tooltip-when-elided="true" />
+    </ui:VisualElement>
+</ui:UXML>
