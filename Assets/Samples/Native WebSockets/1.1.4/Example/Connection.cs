@@ -5,14 +5,15 @@ using UnityEngine;
 
 using NativeWebSocket;
 
-public class WebSocketMgr : Singleton<WebSocketMgr>
+public class Connection : MonoBehaviour
 {
   WebSocket websocket;
 
   // Start is called before the first frame update
   async void Start()
   {
-    websocket = new WebSocket("ws://localhost:2567");
+    // websocket = new WebSocket("ws://echo.websocket.org");
+    websocket = new WebSocket("ws://localhost:3000");
 
     websocket.OnOpen += () =>
     {
@@ -31,18 +32,14 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
 
     websocket.OnMessage += (bytes) =>
     {
-      Debug.Log("OnMessage!");
-      Debug.Log(bytes);
-
-      // getting the message as a string
-      // var message = System.Text.Encoding.UTF8.GetString(bytes);
-      // Debug.Log("OnMessage! " + message);
+      // Reading a plain text message
+      var message = System.Text.Encoding.UTF8.GetString(bytes);
+      Debug.Log("Received OnMessage! (" + bytes.Length + " bytes) " + message);
     };
 
     // Keep sending messages at every 0.3s
     InvokeRepeating("SendWebSocketMessage", 0.0f, 0.3f);
 
-    // waiting for messages
     await websocket.Connect();
   }
 
@@ -69,5 +66,4 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
   {
     await websocket.Close();
   }
-
 }
