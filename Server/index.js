@@ -5,18 +5,68 @@ const WebSocket = require('ws');
 
 const app = express();
 const port = 3000;
-
+require('dotenv').config();
+const ip = process.env.IP_ADDRESS;//
 const server = createServer(app);
 const wss = new WebSocket.Server({ server });
+
+let five = require("johnny-five");
+let board = new five.Board();
+
+var angle = 0;
+var servoPin = 9;
+var clientAngle = 0;
+var isClientInCharge = true;
+
+board.on("ready", () => {
+    const positionPin = new five.Pin("A0");
+    const servo = new five.Servo({pin: servoPin, startAt: angle});
+
+    positionPin.read(function(error, value) {
+      // console.log("New servo angle: " + value);
+      board.wait(100, () => {
+        angle = value;
+      });
+    })
+    board.loop(5000, () => {
+      if (!isClientInCharge)
+      {
+        console.log("Beginning sweep.");
+        servo.sweep();      
+        board.wait(3000, () => {
+          console.log("Stopping sweep.");
+          servo.stop();
+          isClientInCharge = true;
+        });
+      }
+    });
+
+    board.loop(100, () => {
+      // if (!isSweeping)
+      // {
+        // console.log("Moving to clientAngle: " + clientAngle);
+        if (isClientInCharge)
+        {
+          waitingForClientInput = false;
+          servo.to(clientAngle);
+          board.wait(100, () => {isClientInCharge = false;}) 
+        }
+      // }
+    })
+    board.repl.inject({
+      servo: servo
+    })
+})
 
 wss.on('connection', function(ws) {
   console.log("client joined.");
 
-  // send "hello world" interval
-  const textInterval = setInterval(() => ws.send("hello world!"), 100);
-
-  // send random bytes interval
-  const binaryInterval = setInterval(() => ws.send(crypto.randomBytes(8).buffer), 110);
+  // send angle interval
+  const textInterval = setInterval(() => {
+    if (!isClientInCharge)
+      ws.send(angle);
+      console.log("Sending angle to client: " + angle);
+  }, 100);
 
   ws.on('message', function(data) {
     if (typeof(data) === "string") {
@@ -24,7 +74,15 @@ wss.on('connection', function(ws) {
       console.log("string received from client -> '" + data + "'");
 
     } else {
-      console.log("binary received from client -> " + Array.from(data).join(", ") + "");
+      var newAngle = data[0];
+      console.log("binary received from client -> " + newAngle);
+      if (clientAngle != newAngle)
+      {  
+        clientAngle = newAngle;
+        isClientInCharge = true; //the client is trying to move to a new angle
+      } else {
+        isClientInCharge = false; //the client isn't moving anything        
+      }
     }
   });
 
@@ -35,6 +93,6 @@ wss.on('connection', function(ws) {
   });
 });
 
-server.listen(port, function() {
-  console.log(`Listening on http://localhost:${port}`);
+server.listen(port, ip, function() {
+  console.log(`Listening on http://${ip}:${port}`);
 });
