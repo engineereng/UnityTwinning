@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using NativeWebSocket;
 
@@ -9,10 +10,14 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
 {
   WebSocket websocket;
 
+  [SerializeField]
+  private UnityEvent<int> m_Event; 
+  private int angle;
+
   // Start is called before the first frame update
   async void Start()
   {
-    websocket = new WebSocket("ws://localhost:2567");
+    websocket = new WebSocket("ws://localhost:2567"); // change this to your server's IP
 
     websocket.OnOpen += () =>
     {
@@ -31,12 +36,10 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
 
     websocket.OnMessage += (bytes) =>
     {
-      Debug.Log("OnMessage!");
-      Debug.Log(bytes);
-
       // getting the message as a string
-      // var message = System.Text.Encoding.UTF8.GetString(bytes);
-      // Debug.Log("OnMessage! " + message);
+      var message = System.Text.Encoding.UTF8.GetString(bytes);
+      m_Event.Invoke(Int32.Parse(message));
+      Debug.Log("OnMessage! " + message);
     };
 
     // Keep sending messages at every 0.3s
@@ -44,6 +47,11 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
 
     // waiting for messages
     await websocket.Connect();
+  }
+
+  public void SetArmAngle(int angle)
+  {
+    this.angle = angle;
   }
 
   void Update()
@@ -57,11 +65,8 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
   {
     if (websocket.State == WebSocketState.Open)
     {
-      // Sending bytes
-      await websocket.Send(new byte[] { 10, 20, 30 });
-
-      // Sending plain text
-      await websocket.SendText("plain text message");
+      // Sending angle
+      await websocket.Send(new byte[] {(byte) angle});
     }
   }
 
