@@ -442,7 +442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 796873563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -622,6 +622,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
+      propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
+      propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 585671177}
+    - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
+      propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
+      propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onReceiveBytes
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
+      propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MoveArm, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
+      propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6840533062521446411, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
       propertyPath: m_RootOrder
       value: 0
