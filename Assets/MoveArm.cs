@@ -20,15 +20,18 @@ public class MoveArm : MonoBehaviour
     {
         if (direction != 0)
         {
-            target.Rotate(new Vector3(0, m_rotationSpeed * direction * Time.deltaTime, 0));
-            int newRotation = (int) target.rotation.eulerAngles.y;
-            Debug.Log("New rotation: " + newRotation);
+
+            var newRotation = Mathf.Clamp(target.rotation.eulerAngles.y + m_rotationSpeed * direction * Time.deltaTime, 0, 180);
+            // target.Rotate(new Vector3(0, m_rotationSpeed * direction * Time.deltaTime, 0));
+            // int newRotation = (int) target.rotation.eulerAngles.y;
+            target.rotation = Quaternion.Euler(transform.eulerAngles.x, newRotation, transform.eulerAngles.z);
+            // Debug.Log("New rotation: " + newRotation);
             
             WebSocketMgr.Instance.SetArmAngle(newRotation);
         }
     }
 
-    public void onReceiveBytes(int newAngle)
+    public void onReceiveBytes(float newAngle)
     {
         Debug.Log("Current angle: " + target.rotation.eulerAngles.y);
         Debug.Log("New angle: " + newAngle);
