@@ -44,7 +44,7 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
     };
 
     // Keep sending messages at every 0.3s
-    InvokeRepeating("SendWebSocketMessage", 0.0f, 0.3f);
+    // InvokeRepeating("SendWebSocketMessage", 0.0f, 0.3f);
 
     // waiting for messages
     await websocket.Connect();
@@ -53,6 +53,7 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
   public void SetArmAngle(float angle)
   {
     this.angle = angle;
+    SendWebSocketMessage();
   }
 
   void Update()

@@ -624,11 +624,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
       propertyPath: port
-      value: 
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
       propertyPath: ip_address
-      value: 
+      value: 192.168.1.116
       objectReference: {fileID: 0}
     - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
       propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.size
