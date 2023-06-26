@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641228, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -624,11 +624,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
       propertyPath: port
-      value: 3000
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
       propertyPath: ip_address
-      value: 192.168.1.116
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6243483589367508262, guid: 8303e26b4b26743cb967baf7f5b0db33, type: 3}
       propertyPath: m_Event.m_PersistentCalls.m_Calls.Array.size
