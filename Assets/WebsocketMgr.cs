@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,16 +7,19 @@ using NativeWebSocket;
 public class WebSocketMgr : Singleton<WebSocketMgr>
 {
   WebSocket websocket;
+  public String ip_address;
+  public String port;
 
   [SerializeField]
-  private UnityEvent<int> m_Event; 
-  private int angle;
+  private UnityEvent<float> m_Event; 
+  private float angle;
 
   // Start is called before the first frame update
   async void Start()
   {
-    websocket = new WebSocket("ws://localhost:2567"); // change this to your server's IP
-
+    String connection = "ws://" + ip_address + ":" + port;
+    websocket = new WebSocket(connection); // change this to your server's IP
+    Debug.Log("Attemping connection to " + connection);
     websocket.OnOpen += () =>
     {
       Debug.Log("Connection open!");
@@ -38,7 +39,7 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
     {
       // getting the message as a string
       var message = System.Text.Encoding.UTF8.GetString(bytes);
-      m_Event.Invoke(Int32.Parse(message));
+      m_Event.Invoke(float.Parse(message));
       Debug.Log("OnMessage! " + message);
     };
 
@@ -49,7 +50,7 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
     await websocket.Connect();
   }
 
-  public void SetArmAngle(int angle)
+  public void SetArmAngle(float angle)
   {
     this.angle = angle;
   }
@@ -65,8 +66,12 @@ public class WebSocketMgr : Singleton<WebSocketMgr>
   {
     if (websocket.State == WebSocketState.Open)
     {
+      byte[] bytes = BitConverter.GetBytes(angle);
+      Debug.Log("Sent angle (" + angle + " degrees) as byte array: [" + BitConverter.ToString(bytes) + "]");
+      if (BitConverter.IsLittleEndian)
+        Array.Reverse(bytes); // bytes is now in network byte order    
       // Sending angle
-      await websocket.Send(new byte[] {(byte) angle});
+      await websocket.Send(bytes);
     }
   }
 
