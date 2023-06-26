@@ -64,7 +64,13 @@ board.on("ready", () => {
       // console.log("New servo angle: " + value);
       board.wait(100, () => {
         var interpolatedValue = map_range(value, minFeedback, maxFeedback, minDegrees, maxDegrees);
-        angle = interpolatedValue;
+        // clamping output degrees
+        if (interpolatedValue > maxDegrees)
+          angle = maxDegrees;
+        else if (interpolatedValue < minDegrees)
+          angle = minDegrees;
+        else 
+          angle = interpolatedValue
       });
     })
     board.loop(5000, () => {
@@ -72,7 +78,8 @@ board.on("ready", () => {
       {
         isSweeping = true;
         console.log("Beginning sweep.");
-        servo.sweep();      
+        servo.to(maxDegrees, 1000, 10);
+        servo.to(minDegrees, 1000, 10);
         board.wait(3000, () => {
           console.log("Stopping sweep.");
           servo.stop();
