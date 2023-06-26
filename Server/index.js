@@ -92,6 +92,7 @@ board.on("ready", () => {
       if (isClientInCharge)
       {
         servo.to(clientAngle);
+        board.wait(100, () => isClientInCharge = false);
       }
     })
     board.repl.inject({
