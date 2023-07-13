@@ -1,6 +1,9 @@
 # UnityTwinning
 A demo for mirroring a servo's motion in Unity and controlling the motor in Unity. An Express server connects to the Arduino server via the Johnny Five API, which communicates to Unity through endel's Native Websocket library.
 
+## Watch it in action on YouTube: https://www.youtube.com/watch?v=OCzmfuKflg4
+[![YouTube link](https://github.com/engineereng/UnityTwinning/assets/38707101/f58ada45-516c-45e3-8bb0-a8ae10209380)](https://youtu.be/OCzmfuKflg4)
+
 ## Set up
 ### Arduino + servo
 
